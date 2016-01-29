@@ -36,12 +36,23 @@ class DynamicallyGeneratedTest
                 )
             );
             foreach ($testFiles as $testJson) {
+                $patterns = array();
+                if (isset($testJson->patterns)) {
+                    foreach ($testJson->patterns as $pattern) {
+                        $patterns[$pattern->name] = $pattern->callStack;
+                    }
+                }
                 foreach ($testJson->tests as $test) {
+                    $testPattern = null;
+                    if (isset($test->pattern)) {
+                        $testPattern = $patterns[$test->pattern];
+                    }
                     $out[] = array(
                         $test->name,
                         $test->description,
                         $test->output,
-                        $test->callStack
+                        $test->callStack,
+                        $testPattern
                     );
                 }
             }
@@ -56,7 +67,8 @@ class DynamicallyGeneratedTest
         $testName,
         $testDescription,
         $testOutput,
-        $testCallStack
+        $testCallStack,
+        $testPattern=null
     ){
         $this->setName($testName);
         $output = $testOutput->default;
@@ -65,6 +77,12 @@ class DynamicallyGeneratedTest
         }
         $regex = new VerbalExpressions();
         $returnValue = null;
+        if (is_array($testPattern)) {
+          foreach ($testCallStack as $testCall) {
+              $testPattern[] = $testCall;
+          }
+          $testCallStack = $testPattern;
+        }
         foreach ($testCallStack as $testCall) {
             $this->assertTrue(method_exists($regex, $testCall->method));
             $returnValue = call_user_func_array(
