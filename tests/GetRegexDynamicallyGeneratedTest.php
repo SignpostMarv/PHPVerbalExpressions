@@ -4,6 +4,7 @@ namespace VerbalExpressions\PHPVerbalExpressions\Tests;
 
 use PHPUnit_Framework_TestCase;
 use VerbalExpressions\PHPVerbalExpressions\VerbalExpressions;
+
 class GetRegexDynamicallyGeneratedTest extends PHPUnit_Framework_TestCase
 {
     const VerbExpClassName = 'VerbalExpressions\\PHPVerbalExpressions\\VerbalExpressions';
