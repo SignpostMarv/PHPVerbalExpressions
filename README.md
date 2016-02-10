@@ -53,11 +53,7 @@ You can see an up to date list of all ports on [VerbalExpressions.github.io](htt
 - [C++](https://github.com/VerbalExpressions/CppVerbalExpressions)
 
 ## Building the project and running the tests
-The project supports Composer so you have to install [Composer](https://getcomposer.org/doc/00-intro.md#installation-nix) first before project setup.
-
-    curl -sS https://getcomposer.org/installer | php
-    php composer.phar install --dev
-    ln -s vendor/phpunit/phpunit/phpunit.php phpunit
-    ./phpunit
-    
-
+1. Install [Composer](https://getcomposer.org/doc/00-intro.md)
+2. Install [PHPUnit](https://phpunit.de/manual/current/en/installation.html#installation.composer), i.e. `composer global require phpunit/phpunit`
+3. Optionally update the dynamically generated tests, i.e. `vendor/bin/verbal-expressions-tests-generator.php tests`
+4. Run PHPUnit, i.e. `phpunit`
